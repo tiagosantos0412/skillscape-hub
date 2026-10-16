@@ -21,7 +21,7 @@ export default function Sobre() {
             <p key={p}>{p}</p>
           ))}
           <div className="rounded-xl border border-border bg-card p-5">
-            <p className="mb-1 text-sm font-semibold text-foreground">Foco profissional</p>
+            <p className="mb-1 text-sm font-semibold text-foreground">Foco profissional:</p>
             <p>{profile.goal}</p>
           </div>
           <p className="text-sm">
