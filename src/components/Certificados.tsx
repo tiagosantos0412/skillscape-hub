@@ -1,48 +1,50 @@
-import { Award } from 'lucide-react'
+import { Award, ExternalLink } from 'lucide-react'
+import { certificates } from '@/data/portfolio'
 
-// Para adicionar novos certificados, edite este array
-const certificates = [
-  {
-    title: 'Formação em Testes de Software',
-    institution: 'Udemy',
-    year: '2025',
-  },
-  {
-    title: 'Automação de Testes com Cypress',
-    institution: 'QAxperience',
-    year: '2025',
-  },
-  {
-    title: 'API Testing e Postman Avançado',
-    institution: 'Alura',
-    year: '2024',
-  },
-]
+function Section({ id, label, title, children }: { id: string; label: string; title: string; children: React.ReactNode }) {
+  return (
+    <section id={id} className="scroll-mt-20 border-t border-border py-20">
+      <div className="mx-auto max-w-6xl px-5">
+        <p className="mb-2 font-mono text-sm text-primary">// {label}</p>
+        <h2 className="mb-10 font-display text-3xl font-bold md:text-4xl">{title}</h2>
+        {children}
+      </div>
+    </section>
+  )
+}
 
 export default function Certificados() {
   return (
-    <section id="certificados" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold text-white mb-12 text-center">
-          Certificados
-        </h2>
-        <div className="space-y-4">
-          {certificates.map((cert) => (
-            <div
-              key={cert.title}
-              className="flex items-start gap-4 bg-dark-800 p-5 rounded-xl border border-dark-700 hover:border-accent transition-colors"
-            >
-              <Award className="w-6 h-6 text-accent flex-shrink-0 mt-1" />
-              <div>
-                <h3 className="text-lg font-semibold text-white">{cert.title}</h3>
-                <p className="text-gray-400 text-sm">
-                  {cert.institution} • {cert.year}
-                </p>
+    <Section id="certificados" label="badges" title="Certificados">
+      <div className="grid gap-4 sm:grid-cols-2">
+        {certificates.map((c) => (
+          <div key={c.title} className="flex items-start gap-4 rounded-xl border border-border bg-card p-5">
+            {c.image ? (
+              <img src={c.image} alt={`Certificado ${c.title}`} className="h-16 w-16 rounded object-cover" />
+            ) : (
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/15 text-primary">
+                <Award />
               </div>
+            )}
+            <div>
+              <h3 className="font-semibold text-foreground">{c.title}</h3>
+              <p className="text-sm text-muted-foreground">
+                {c.institution} · {c.date}
+              </p>
+              {c.url && (
+                <a
+                  href={c.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-1 inline-flex items-center gap-1 text-sm text-primary hover:underline"
+                >
+                  Ver certificado <ExternalLink size={12} />
+                </a>
+              )}
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
-    </section>
+    </Section>
   )
 }

@@ -15,51 +15,55 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur border-b border-dark-700">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <a href="#inicio" className="text-accent font-bold text-xl">
-            QA SkillScape Hub
-          </a>
+    <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur">
+      <a
+        href="#conteudo"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-primary focus:px-3 focus:py-2 focus:text-primary-foreground"
+      >
+        Pular para o conteúdo
+      </a>
 
-          <div className="hidden md:flex space-x-6">
-            {links.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                className="text-gray-300 hover:text-accent transition-colors text-sm font-medium"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
+        <a href="#inicio" className="font-mono text-sm font-bold">
+          <span className="text-primary">✓</span> tiago.qa
+        </a>
 
-          <button
-            className="md:hidden text-gray-300 hover:text-accent"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Abrir menu"
-          >
-            {isOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
+        <nav aria-label="Principal" className="hidden gap-6 md:flex">
+          {links.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="text-sm text-muted-foreground transition-colors hover:text-primary"
+            >
+              {link.name}
+            </a>
+          ))}
+        </nav>
+
+        <button
+          className="md:hidden text-muted-foreground hover:text-primary"
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? 'Fechar menu' : 'Abrir menu'}
+          aria-expanded={isOpen}
+        >
+          {isOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
 
       {isOpen && (
-        <div className="md:hidden bg-dark-800 border-b border-dark-700">
-          <div className="px-4 py-3 space-y-2">
-            {links.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setIsOpen(false)}
-                className="block text-gray-300 hover:text-accent transition-colors text-sm font-medium py-1"
-              >
-                {link.name}
-              </a>
-            ))}
-          </div>
-        </div>
+        <nav aria-label="Mobile" className="flex flex-col border-t border-border px-5 py-3 md:hidden">
+          {links.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onClick={() => setIsOpen(false)}
+              className="py-2 text-muted-foreground hover:text-primary"
+            >
+              {link.name}
+            </a>
+          ))}
+        </nav>
       )}
-    </nav>
+    </header>
   )
 }

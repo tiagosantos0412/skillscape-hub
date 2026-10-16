@@ -1,13 +1,75 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:wght@100..800&family=Space+Grotesk:wght@300..700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --radius: 0.75rem;
+
+  --background: #0d1117;
+  --foreground: #f4f6fb;
+  --card: #131820;
+  --card-foreground: #f4f6fb;
+  --primary: #4adea8;
+  --primary-foreground: #081411;
+  --secondary: #1c2330;
+  --secondary-foreground: #f4f6fb;
+  --muted: #242b3a;
+  --muted-foreground: #a7b0c4;
+  --accent: #24364a;
+  --accent-foreground: #c5f5dc;
+  --destructive: #ef4444;
+  --destructive-foreground: #fff;
+  --warning: #f5c547;
+  --border: #273140;
+  --input: #273140;
+  --ring: #4adea8;
+
+  --shadow-glow: 0 0 30px -8px rgba(74, 222, 168, 0.5);
+  --grid-bg: linear-gradient(rgba(39, 49, 64, 0.6) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(39, 49, 64, 0.6) 1px, transparent 1px);
+}
+
 html {
   scroll-behavior: smooth;
 }
 
-body {
-  @apply bg-dark-900 text-gray-100 font-sans antialiased;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
+
+body {
+  @apply bg-background text-foreground font-sans antialiased;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
+@keyframes terminal-line {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+}
+
+.terminal-line {
+  opacity: 0;
+  animation: terminal-line 0.5s ease-out forwards;
+}
+

@@ -1,101 +1,42 @@
-// Ícones como SVG inline para evitar inconsistências de versão do lucide-react
-const LinkedInIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="w-6 h-6"
-  >
-    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-    <rect width="4" height="12" x="2" y="9" />
-    <circle cx="4" cy="4" r="2" />
-  </svg>
-)
+import { Mail, Linkedin, Github } from 'lucide-react'
+import { contacts } from '@/data/portfolio'
 
-const GitHubIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="w-6 h-6"
-  >
-    <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
-    <path d="M9 18c-4.51 2-5-2-7-2" />
-  </svg>
-)
+const btn = "inline-flex items-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-all focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+const btnPrimary = `${btn} bg-primary text-primary-foreground hover:brightness-110 hover:shadow-glow`
+const btnGhost = `${btn} border border-border bg-card text-foreground hover:border-primary hover:text-primary`
 
-const MailIcon = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    className="w-6 h-6"
-  >
-    <rect width="20" height="16" x="2" y="4" rx="2" />
-    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
-  </svg>
-)
-
-const contacts = [
-  {
-    name: 'LinkedIn',
-    href: 'https://linkedin.com/in/seu-perfil',
-    icon: <LinkedInIcon />,
-  },
-  {
-    name: 'GitHub',
-    href: 'https://github.com/seu-usuario',
-    icon: <GitHubIcon />,
-  },
-  {
-    name: 'E-mail',
-    href: 'mailto:tiago.felipe@email.com',
-    icon: <MailIcon />,
-  },
-]
+function Section({ id, label, title, children }: { id: string; label: string; title: string; children: React.ReactNode }) {
+  return (
+    <section id={id} className="scroll-mt-20 border-t border-border py-20">
+      <div className="mx-auto max-w-6xl px-5">
+        <p className="mb-2 font-mono text-sm text-primary">// {label}</p>
+        <h2 className="mb-10 font-display text-3xl font-bold md:text-4xl">{title}</h2>
+        {children}
+      </div>
+    </section>
+  )
+}
 
 export default function Contato() {
   return (
-    <section id="contato" className="py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-3xl font-bold text-white mb-6">Contato</h2>
-        <p className="text-gray-400 mb-10">
-          Quer trocar uma ideia sobre QA ou oportunidades? Me encontre nos links abaixo.
-        </p>
-        <div className="flex justify-center gap-6">
-          {contacts.map((contact) => (
-            <a
-              key={contact.name}
-              href={contact.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex flex-col items-center gap-2 text-gray-300 hover:text-accent transition-colors"
-              aria-label={contact.name}
-            >
-              {contact.icon}
-              <span className="text-sm font-medium">{contact.name}</span>
-            </a>
-          ))}
-        </div>
+    <Section id="contato" label="contato" title="Vamos conversar?">
+      <div className="flex flex-wrap gap-3">
+        {contacts.linkedin && (
+          <a href={contacts.linkedin} target="_blank" rel="noreferrer" className={btnPrimary}>
+            <Linkedin size={16} /> LinkedIn
+          </a>
+        )}
+        {contacts.github && (
+          <a href={contacts.github} target="_blank" rel="noreferrer" className={btnGhost}>
+            <Github size={16} /> GitHub
+          </a>
+        )}
+        {contacts.email && (
+          <a href={`mailto:${contacts.email}`} className={btnGhost}>
+            <Mail size={16} /> {contacts.email}
+          </a>
+        )}
       </div>
-    </section>
+    </Section>
   )
 }
